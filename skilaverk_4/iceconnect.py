@@ -82,3 +82,66 @@ class CourseDB(DbConnector):
         return rows_affected
 
 
+class StudentDB(DbConnector):
+    def __init__(self):
+        DbConnector.__init__(self)
+
+    def add_student(self, s_fname, s_lname, s_dob, s_ss):
+        new_id = 0
+        result = self.execute_procedure('AddStudent', [s_fname, s_lname, s_dob, s_ss])
+        if result:
+            new_id = int(result[0][0])
+        return new_id
+
+    def get_student(self, s_id):
+        result = self.execute_procedure('SingleStudentJSON', [s_id])
+        if result:
+            return result[0]
+        else:
+            return list()
+
+    def update_student(self, s_id, s_ss):
+        rows_affected = 0
+        result = self.execute_procedure('UpdateStudent', [s_id, s_ss])
+        if result:
+            rows_affected = int(result[0][0])
+        return rows_affected
+
+    def delete_student(self, s_id):
+        rows_affected = 0
+        result = self.execute_procedure('DeleteStudent', [s_id])
+        if result:
+            rows_affected = int(result[0][0])
+        return rows_affected
+
+class SchoolDB(DbConnector):
+    def __init__(self):
+        DbConnector.__init__(self)
+
+    def add_school(self, school_name):
+        new_id = 0
+        result = self.execute_procedure('AddSchool', [school_name])
+        if result:
+            new_id = int(result[0][0])
+        return new_id
+
+    def get_school(self, school_id):
+        result = self.execute_procedure('SingleSchool', [school_id])
+        if result:
+            return result[0]
+        else:
+            return list()
+
+    def update_school(self, school_id, s_name):
+        rows_affected = 0
+        result = self.execute_procedure('UpdateSchool', [school_id, s_name])
+        if result:
+            rows_affected = int(result[0][0])
+        return rows_affected
+
+    def delete_school(self, school_id):
+        rows_affected = 0
+        result = self.execute_procedure('DeleteSchool', [school_id])
+        if result:
+            rows_affected = int(result[0][0])
+        return rows_affected
