@@ -145,3 +145,9 @@ class SchoolDB(DbConnector):
         if result:
             rows_affected = int(result[0][0])
         return rows_affected
+
+    courses = CourseDB()
+
+    course_info = courses.get_course('STÆ603')
+
+    print(course_info)

@@ -34,27 +34,38 @@ while valm !="6":
                         cnumb = input("Course Number: ")
                         cname = input("Course Name: ")
                         ccreds = int(input("Course Credits: "))
-
-                        courses.add_course(cnumb, cname, ccreds)
-
+                        try:
+                            courses.add_course(cnumb, cname, ccreds)
+                            print(cnumb, "added")
+                        except:
+                            pass
                     elif valm1 == "2":
                         cnumb = input("Course Number: ")
-                        course_info = courses.get_course(cnumb)
-                        for info in course_info:
-                            print("Course Number:", info[0], "\nCourse Name:", info[1], "Course Credits:", info[2])
+                        try:
+                            course_info = courses.get_course(cnumb)
+                            print("--------------")
+                            print("Course Number:", course_info[0], "\nCourse Name:", course_info[1], "\nCourse Credits:", course_info[2])
+                        except:
+                            pass
 
                     elif valm1 == "3":
-                        placeid = int(input("PlaceID: "))
-
-                        name = input("Name: ")
-                        region = input("Region: ")
-                        population = int(input("Population: "))
-                        website = input("Website: ")
-
-                        places.update_place(placeid, name, region, population, website)
+                        cnumb = input("Course Number: ")
+                        cname = input("Course Name: ")
+                        ccreds = int(input("Course Credits: "))
+                        try:
+                            courses.update_course(cnumb, cname, ccreds)
+                            print(cnumb, "updated")
+                        except:
+                            pass
 
                     elif valm1 == "4":
-                        pass
+                        cnumb = input("Course Number: ")
+
+                        try:
+                            courses.delete_course(cnumb)
+                            print(cnumb, "deleted")
+                        except:
+                            pass
 
 
 
