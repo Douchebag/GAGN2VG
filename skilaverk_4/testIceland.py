@@ -1,26 +1,28 @@
 from iceconnect import *
 
 courses = CourseDB()
+students = StudentDB()
+schools = SchoolDB()
 
 valm=""
 while valm !="6":
     print("\n--------------")
     print("1. CourseDB")
-    print("2. ")
-    print("3. ")
+    print("2. StudentDB")
+    print("3. SchoolDB")
     print("4. ")
     print("5. ")
     print("6. Hætta")
     print("--------------")
     valm=input("")
     try:
-        valm1 = ""
-        valm2 = ""
-        valm3 = ""
+        courseValm = ""
+        studentValm = ""
+        schoolValm = ""
         valm4 = ""
         valm5 = ""
         if valm == "1":
-            while valm1 != "5":
+            while courseValm != "5":
                 print("\n--------------")
                 print("1. Create")
                 print("2. Read")
@@ -28,9 +30,9 @@ while valm !="6":
                 print("4. Delete")
                 print("5. Hætta")
                 print("--------------")
-                valm1 = input("")
+                courseValm = input("")
                 try:
-                    if valm1 == "1":
+                    if courseValm == "1":
                         cnumb = input("Course Number: ")
                         cname = input("Course Name: ")
                         ccreds = int(input("Course Credits: "))
@@ -39,7 +41,7 @@ while valm !="6":
                             print(cnumb, "added")
                         except:
                             pass
-                    elif valm1 == "2":
+                    elif courseValm == "2":
                         cnumb = input("Course Number: ")
                         try:
                             course_info = courses.get_course(cnumb)
@@ -48,7 +50,7 @@ while valm !="6":
                         except:
                             pass
 
-                    elif valm1 == "3":
+                    elif courseValm == "3":
                         cnumb = input("Course Number: ")
                         cname = input("Course Name: ")
                         ccreds = int(input("Course Credits: "))
@@ -58,7 +60,7 @@ while valm !="6":
                         except:
                             pass
 
-                    elif valm1 == "4":
+                    elif courseValm == "4":
                         cnumb = input("Course Number: ")
 
                         try:
@@ -66,148 +68,117 @@ while valm !="6":
                             print(cnumb, "deleted")
                         except:
                             pass
-
-
-
-
-
-
-
-
-                except:
-                    pass
-
-    except:
-        pass
-
-'''
-valm=""
-while valm !="4":
-    print("\n--------------")
-    print("1. Cities")
-    print("2. Hotels")
-    print("3. Restaurants")
-    print("4. Quit")
-    print("--------------")
-    valm=input("")
-    try:
-        valm1 = ""
-        valm2 = ""
-        valm3 = ""
-        if valm == "1":
-            while valm1 != "3":
-                print("\n--------------")
-                print("1. Show Specific")
-                print("2. Show All")
-                print("3. Quit")
-                print("--------------")
-                valm1 = input("")
-                try:
-                    if valm1 == "1":
-                        name = input("Name: ").lower()
-                        placelist = places.get_place_list()
-                        for p in placelist:
-                            if p[0].lower() == name:
-                                print('Name:', p[0])
-                                print('Region:', p[1])
-                                print('Website:', p[2])
-                    elif valm1 == "2":
-                        placelist = places.get_place_list()
-                        for p in placelist:
-                            print(*p)
-                    elif valm1 == "3":
-                        print('Exiting Menu')
                 except:
                     pass
 
         elif valm == "2":
-            while valm2 != "4":
+            while studentValm != "5":
                 print("\n--------------")
-                print("1. Find by Hotel name")
-                print("2. Find by City name")
-                print("3. Find by District name")
-                print("4. Quit")
+                print("1. Create")
+                print("2. Read")
+                print("3. Update")
+                print("4. Delete")
+                print("5. Hætta")
                 print("--------------")
-                valm2 = input("")
+                studentValm = input("")
                 try:
-                    if valm2 == "1":
-                        name = input("Hotel name: ").lower()
-                        hotelList = hotels.get_hotel_list()
-                        for p in hotelList:
-                            if p[0].lower() == name:
-                                print('Name:', p[0])
-                                print('Street Address:', p[1])
-                                print('District ID:', p[2])
-                                print('City:', p[3])
-                                print('Website:', p[4])
-                    elif valm2 == "2":
-                        name = input("City name: ")
-                        hotelbycity = hotels.get_hotel_by_city(name)
-                        for x in hotelbycity:
-                            print('----------------')
-                            print('Name:', x[0])
-                            print('Street Address:', x[1])
-                            print('City:', x[2])
-                            print('Website:', x[3])
+                    if studentValm == "1":
+                        fName = input("First Name: ")
+                        lName = input("Last Name: ")
+                        dob = int(input("Date of Birth: "))
+                        startSem = int(input("Starting Semester: "))
 
-                    elif valm2 == "3":
-                        name = input("District name: ")
-                        hotelbydisctrict = hotels.get_hotel_by_district(name)
-                        for x in hotelbydisctrict:
-                            print('----------------')
-                            print('Name:', x[0])
-                            print('Street Address:', x[1])
-                            print('City:', x[2])
-                            print('Website:', x[3])
+                        try:
+                            students.add_student(fName, lName, dob, startSem)
+                            print(fName, "", lName, "added")
+                        except:
+                            pass
+                    elif studentValm == "2":
+                        studentId = int(input("Student ID: "))
 
-                    elif valm2 == "4":
-                        print('Exiting Menu')
+                        student = students.get_student(studentId)
+                        parsed = json.loads(student[0])
+
+                        try:
+                            print("Student ID: ", parsed["s_id"])
+                            print("First Name: ", parsed["f_name"])
+                            print("Last Name: ", parsed["l_name"])
+                            print("Date of Birth: ", parsed["date_of_b"])
+                            print("Courses: ")
+                            for courses in json.loads(parsed["course_list"]):
+                                print("Course Number: ", courses["c_number"])
+                                print("Course Credits: ", courses["c_credits"])
+                                print("Course Status: ", courses["course_status"])
+                        except:
+                            pass
+                    elif studentValm == "3":
+                        studentId = int(input("Student ID: "))
+                        ss = int(input("Starting Semester: "))
+                        try:
+                            students.update_student(studentId, ss)
+                            print(studentId, "'s starting semester updated")
+                        except:
+                            pass
+
+                    elif studentValm == "4":
+                        studentId = int(input("Student ID: "))
+
+                        try:
+                            students.delete_student(studentId)
+                            print(studentId, "deleted")
+                        except:
+                            pass
                 except:
                     pass
+
         elif valm == "3":
-            while valm3 != "4":
+            while schoolValm != "5":
                 print("\n--------------")
-                print("1. Show all")
-                print("2. Find by City name")
-                print("3. Find by District name")
-                print("4. Quit")
+                print("1. Create")
+                print("2. Read")
+                print("3. Update")
+                print("4. Delete")
+                print("5. Hætta")
                 print("--------------")
-                valm3 = input("")
+                schoolValm = input("")
                 try:
-                    if valm3 == "1":
-                        restaurantlist = restaurants.get_restaurant_list()
-                        for p in restaurantlist:
-                            print(*p)
-                    elif valm3 == "2":
-                        name = input("City name: ")
-                        restaurantbycity = restaurants.get_restaurant_by_city(name)
-                        for x in restaurantbycity:
-                            print('----------------')
-                            print('Name:', x[0])
-                            print('Street Address:', x[1])
-                            print('City Name:', x[2])
-                            print('Capacity:', x[3])
-                            print('Website:', x[4])
-                    elif valm3 == "3":
-                        name = input("District name: ")
-                        restaurantbydistrict = restaurants.get_restaurant_by_district(name)
-                        for x in restaurantbydistrict:
-                            print('----------------')
-                            print('Name:', x[0])
-                            print('Street Address:', x[1])
-                            print('City Name:', x[2])
-                            print('Capacity:', x[3])
-                            print('Website:', x[4])
-                    elif valm3 == "4":
-                        print('Exiting Menu')
+                    if schoolValm == "1":
+                        schoolName = input("School Name: ")
+
+                        try:
+                            schools.add_school(schoolName)
+                            print(schoolName, "added")
+                        except:
+                            pass
+                    elif schoolValm == "2":
+                        schoolId = int(input("School ID: "))
+
+                        try:
+                            schoolInfo = schools.get_school(schoolId)
+                            print("--------------")
+                            print("School ID:", schoolInfo[0], "\nSchool Name:", schoolInfo[1])
+                        except:
+                            pass
+
+                    elif schoolValm == "3":
+                        schoolId = int(input("School ID: "))
+                        schoolName = input("School Name: ")
+                        try:
+                            schools.update_school(schoolId, schoolName)
+                            print(schoolId, "updated")
+                        except:
+                            pass
+
+                    elif schoolValm == "4":
+                        schoolId = int(input("School ID: "))
+
+                        try:
+                            schools.delete_school(schoolId)
+                            print(schoolId, "deleted")
+                        except:
+                            pass
 
                 except:
                     pass
-
-        elif valm == "4":
-            print("Exiting program")
-
     except:
         pass
-
-'''

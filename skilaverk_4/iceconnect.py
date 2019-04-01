@@ -1,6 +1,6 @@
 from mysql.connector import MySQLConnection, Error
 from python_mysql_dbconfig import read_db_config
-
+import json
 
 class DbConnector:
     def __init__(self):
@@ -145,9 +145,3 @@ class SchoolDB(DbConnector):
         if result:
             rows_affected = int(result[0][0])
         return rows_affected
-
-    courses = CourseDB()
-
-    course_info = courses.get_course('STÆ603')
-
-    print(course_info)
