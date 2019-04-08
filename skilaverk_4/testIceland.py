@@ -22,13 +22,15 @@ while valm !="6":
         valm4 = ""
         valm5 = ""
         if valm == "1":
-            while courseValm != "5":
+            while courseValm != "7":
                 print("\n--------------")
-                print("1. Create")
-                print("2. Read")
-                print("3. Update")
-                print("4. Delete")
-                print("5. Hætta")
+                print("1. New Course")
+                print("2. Course Info")
+                print("3. Course Restrictors")
+                print("4. Number Of Courses")
+                print("5. Update Course")
+                print("6. Delete Course")
+                print("7. Hætta")
                 print("--------------")
                 courseValm = input("")
                 try:
@@ -51,6 +53,23 @@ while valm !="6":
                             pass
 
                     elif courseValm == "3":
+                        try:
+                            restrictor_info = courses.get_restrictors()
+                            print("Course Number\tCourse Name\tCredits\tRestrictor\tRestrictorType")
+                            print("---------------------------------------------------------------------------")
+                            for restr in restrictor_info:
+                                print(restr[0], "\t", restr[1], "\t", restr[2], "\t", restr[4], "\t", restr[5])
+                        except:
+                            pass
+
+                    elif courseValm == "4":
+                        totalCourses = courses.number_of_courses()
+                        try:
+                            print("Total Number Of Courses:", totalCourses)
+                        except:
+                            pass
+
+                    elif courseValm == "5":
                         cnumb = input("Course Number: ")
                         cname = input("Course Name: ")
                         ccreds = int(input("Course Credits: "))
@@ -60,7 +79,7 @@ while valm !="6":
                         except:
                             pass
 
-                    elif courseValm == "4":
+                    elif courseValm == "6":
                         cnumb = input("Course Number: ")
 
                         try:
@@ -72,13 +91,14 @@ while valm !="6":
                     pass
 
         elif valm == "2":
-            while studentValm != "5":
+            while studentValm != "6":
                 print("\n--------------")
-                print("1. Create")
-                print("2. Read")
-                print("3. Update")
-                print("4. Delete")
-                print("5. Hætta")
+                print("1. New Student")
+                print("2. Student Info")
+                print("3. Student Credits")
+                print("4. Update Student")
+                print("5. Delete Student")
+                print("6. Hætta")
                 print("--------------")
                 studentValm = input("")
                 try:
@@ -111,7 +131,18 @@ while valm !="6":
                                 print("Course Status: ", courses["course_status"])
                         except:
                             pass
+
                     elif studentValm == "3":
+                        studentId = int(input("Student ID: "))
+                        student = students.student_creds(studentId)
+
+                        try:
+                            print("Student Name:", student[0], "\nNams Braut:", student[1], "\nFjoldi Einigar:", student[2])
+
+                        except:
+                            pass
+
+                    elif studentValm == "4":
                         studentId = int(input("Student ID: "))
                         ss = int(input("Starting Semester: "))
                         try:
@@ -120,7 +151,7 @@ while valm !="6":
                         except:
                             pass
 
-                    elif studentValm == "4":
+                    elif studentValm == "5":
                         studentId = int(input("Student ID: "))
 
                         try:
@@ -134,10 +165,10 @@ while valm !="6":
         elif valm == "3":
             while schoolValm != "5":
                 print("\n--------------")
-                print("1. Create")
-                print("2. Read")
-                print("3. Update")
-                print("4. Delete")
+                print("1. New School")
+                print("2. School Info")
+                print("3. Update School")
+                print("4. Delete School")
                 print("5. Hætta")
                 print("--------------")
                 schoolValm = input("")

@@ -246,7 +246,7 @@ begin
 end $$
 delimiter ;
 
-select StudentCredits(1);
+select StudentCredits(2);
 
 -- 13:
 -- Hér þarf að skila Brautarheiti, heiti námsleiðar(Track) og fjölda áfanga

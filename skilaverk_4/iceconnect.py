@@ -67,6 +67,20 @@ class CourseDB(DbConnector):
         else:
             return list()
 
+    def get_restrictors(self):
+        result = self.execute_procedure('courseRestrictorList')
+        if result:
+            return result
+        else:
+            return list()
+
+    def number_of_courses(self):
+        result = self.execute_function('NumberOfCourses')
+        if result:
+            return result[0]
+        else:
+            return list()
+
     def update_course(self, c_numb, c_name, c_cred):
         rows_affected = 0
         result = self.execute_procedure('UpdateCourse', [c_numb, c_name, c_cred])
@@ -95,6 +109,13 @@ class StudentDB(DbConnector):
 
     def get_student(self, s_id):
         result = self.execute_procedure('SingleStudentJSON', [s_id])
+        if result:
+            return result[0]
+        else:
+            return list()
+
+    def student_creds(self, s_id):
+        result = self.execute_procedure('studentCreds', [s_id])
         if result:
             return result[0]
         else:
