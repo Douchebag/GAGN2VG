@@ -20,13 +20,25 @@
 delimiter $$
 drop procedure if exists ElectedCourses $$
 
-create procedure ElectedCourses(stud_id int(11))
+create procedure ElectedCourses(student_id int(11))
 begin
 	
+    select res.courseNumber
+    from Restrictors res
+    inner join Courses c on (res.courseNumber = c.courseNumber)
+    inner join TrackCourses tc on (c.courseNumber = tc.courseNumber)
+    inner join Registration reg on (tc.courseNumber = reg.courseNumber)
+    where res.restrictorID = reg.courseNumber and reg.studentID = student_id
+    limit 5;
+    
 end $$
 delimiter ;
 
+call ElectedCourses(2);
 
+select courseNumber
+from restrictors
+where restrictorID = 'STÆ103';
 -- 2:
 -- Bætið við eða aðlagið klasasafnið ykkar(library) úr verkefni 4 þannig að þig getið prófað þessa virkni úr forriti
 -- í viðbót við að testa þetta í grunninum sjálfum!
